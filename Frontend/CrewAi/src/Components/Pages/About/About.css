@@ -1,0 +1,359 @@
+/* ========================================
+   CREWLY — ABOUT PAGE
+======================================== */
+
+.about-page {
+  min-height: 100vh;
+  background: #07090d;
+  color: #f5f7fb;
+}
+
+/* ========================================
+   HERO
+======================================== */
+
+.about-hero {
+  width: min(1000px, calc(100% - 40px));
+  margin: 0 auto;
+
+  padding: 125px 0 105px;
+
+  position: relative;
+}
+
+.about-hero::before {
+  content: "";
+
+  position: absolute;
+
+  top: 40px;
+  left: -120px;
+
+  width: 320px;
+  height: 320px;
+
+  border-radius: 50%;
+
+  background: rgba(70, 110, 220, 0.08);
+
+  filter: blur(100px);
+
+  pointer-events: none;
+}
+
+.about-hero h1 {
+  position: relative;
+
+  max-width: 850px;
+
+  margin-top: 22px;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(48px, 7vw, 78px);
+  line-height: 1.02;
+
+  font-weight: 700;
+  letter-spacing: -0.06em;
+
+  color: #f5f7fb;
+}
+
+.about-hero h1 span {
+  display: block;
+
+  color: #788496;
+}
+
+.about-hero p {
+  position: relative;
+
+  max-width: 650px;
+
+  margin-top: 26px;
+
+  color: #858f9f;
+
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+/* ========================================
+   STORY
+======================================== */
+
+.about-story {
+  width: min(1120px, calc(100% - 40px));
+
+  margin: 0 auto;
+  padding: 78px 0;
+
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  gap: 70px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.about-story-content {
+  max-width: 760px;
+}
+
+.about-story-content h2 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(36px, 5vw, 58px);
+  line-height: 1.05;
+
+  font-weight: 600;
+  letter-spacing: -0.05em;
+
+  color: #eef2f7;
+}
+
+.about-story-content p {
+  max-width: 680px;
+
+  margin-top: 22px;
+
+  color: #7d8797;
+
+  font-size: 14px;
+  line-height: 1.85;
+}
+
+/* ========================================
+   PRINCIPLES
+======================================== */
+
+.about-principles {
+  width: min(1120px, calc(100% - 40px));
+
+  margin: 0 auto;
+  padding: 78px 0;
+
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  gap: 70px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.principles-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 12px;
+}
+
+.principles-grid article {
+  position: relative;
+
+  min-height: 245px;
+
+  padding: 24px;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(255, 255, 255, 0.075);
+  border-radius: 17px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.035),
+      rgba(255, 255, 255, 0.012)
+    );
+
+  transition:
+    transform 0.3s cubic-bezier(.2,.7,.2,1),
+    border-color 0.3s ease,
+    background 0.3s ease;
+}
+
+.principles-grid article::after {
+  content: "";
+
+  position: absolute;
+
+  width: 120px;
+  height: 120px;
+
+  top: -70px;
+  right: -70px;
+
+  border-radius: 50%;
+
+  background: rgba(91, 140, 255, 0.08);
+
+  filter: blur(35px);
+
+  opacity: 0;
+
+  transition: opacity 0.3s ease;
+}
+
+.principles-grid article:hover {
+  transform: translateY(-5px);
+
+  border-color: rgba(91, 140, 255, 0.28);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(91, 140, 255, 0.055),
+      rgba(255, 255, 255, 0.015)
+    );
+}
+
+.principles-grid article:hover::after {
+  opacity: 1;
+}
+
+.principles-grid article > span {
+  color: #5f6b7d;
+
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.principles-grid h3 {
+  position: relative;
+  z-index: 1;
+
+  margin-top: 55px;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 19px;
+  line-height: 1.2;
+
+  font-weight: 600;
+  letter-spacing: -0.025em;
+
+  color: #edf1f7;
+}
+
+.principles-grid p {
+  position: relative;
+  z-index: 1;
+
+  margin-top: 11px;
+
+  color: #778293;
+
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+/* ========================================
+   CLOSING
+======================================== */
+
+.about-closing {
+  width: min(1120px, calc(100% - 40px));
+
+  margin: 0 auto;
+
+  padding: 115px 0 145px;
+
+  text-align: center;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.about-closing p {
+  color: #667184;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.17em;
+}
+
+.about-closing h2 {
+  margin-top: 22px;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(42px, 6vw, 68px);
+  line-height: 1;
+
+  font-weight: 600;
+  letter-spacing: -0.055em;
+
+  color: #f2f5f9;
+}
+
+/* ========================================
+   TABLET
+======================================== */
+
+@media (max-width: 800px) {
+  .about-hero {
+    padding: 90px 0 75px;
+  }
+
+  .about-story,
+  .about-principles {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+
+  .principles-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .principles-grid article {
+    min-height: auto;
+  }
+
+  .principles-grid h3 {
+    margin-top: 35px;
+  }
+}
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 600px) {
+  .about-hero,
+  .about-story,
+  .about-principles,
+  .about-closing {
+    width: calc(100% - 32px);
+  }
+
+  .about-hero h1 {
+    font-size: clamp(42px, 11vw, 60px);
+  }
+
+  .about-hero p {
+    font-size: 14px;
+  }
+
+  .about-story-content h2 {
+    font-size: 38px;
+  }
+
+  .about-closing {
+    padding: 90px 0 110px;
+  }
+}
+
+/* ========================================
+   SMALL MOBILE
+======================================== */
+
+@media (max-width: 400px) {
+  .about-hero {
+    padding-top: 70px;
+  }
+
+  .about-hero h1 {
+    font-size: 40px;
+  }
+
+  .about-story-content h2 {
+    font-size: 34px;
+  }
+}

@@ -1,0 +1,662 @@
+/* ========================================
+   CREWLY — UPLOAD DATA PAGE
+======================================== */
+
+.upload-data-page {
+  min-height: 100vh;
+  padding: 110px 24px 140px;
+
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(65, 105, 190, 0.07),
+      transparent 34%
+    ),
+    #07090d;
+
+  color: #f5f7fb;
+}
+
+/* ========================================
+   HERO
+======================================== */
+
+.upload-hero {
+  width: min(900px, 100%);
+  margin: 0 auto;
+
+  text-align: center;
+}
+
+.upload-hero h1 {
+  margin-top: 20px;
+
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(48px, 7vw, 76px);
+  line-height: 1.02;
+
+  font-weight: 700;
+  letter-spacing: -0.06em;
+
+  color: #f5f7fb;
+}
+
+.upload-hero h1 span {
+  display: block;
+  color: #737e8e;
+}
+
+.upload-hero p {
+  max-width: 650px;
+
+  margin: 25px auto 0;
+
+  color: #7e8999;
+
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+/* ========================================
+   UPLOAD SECTION
+======================================== */
+
+.upload-section {
+  width: min(950px, 100%);
+  margin: 80px auto 0;
+}
+
+/* ========================================
+   UPLOAD CARD
+======================================== */
+
+.upload-card {
+  position: relative;
+
+  min-height: 370px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 50px 30px;
+
+  overflow: hidden;
+
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.035),
+      rgba(255, 255, 255, 0.01)
+    );
+
+  text-align: center;
+
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease;
+}
+
+.upload-card::before {
+  content: "";
+
+  position: absolute;
+
+  width: 350px;
+  height: 350px;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background: rgba(70, 110, 220, 0.065);
+
+  filter: blur(90px);
+
+  pointer-events: none;
+}
+
+.upload-card:hover {
+  border-color: rgba(91, 140, 255, 0.32);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(91, 140, 255, 0.045),
+      rgba(255, 255, 255, 0.01)
+    );
+}
+
+/* ========================================
+   UPLOAD ICON
+======================================== */
+
+.upload-icon {
+  position: relative;
+  z-index: 1;
+
+  width: 58px;
+  height: 58px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+
+  background: rgba(255, 255, 255, 0.035);
+
+  color: #e2e8f0;
+
+  font-size: 23px;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* ========================================
+   UPLOAD CONTENT
+======================================== */
+
+.upload-card h2 {
+  position: relative;
+  z-index: 1;
+
+  margin-top: 25px;
+
+  font-family: "Space Grotesk", sans-serif;
+
+  font-size: 23px;
+  line-height: 1.1;
+
+  font-weight: 600;
+  letter-spacing: -0.035em;
+
+  color: #edf1f7;
+}
+
+.upload-card p {
+  position: relative;
+  z-index: 1;
+
+  max-width: 480px;
+
+  margin-top: 10px;
+
+  color: #747f90;
+
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+/* ========================================
+   BUTTON
+======================================== */
+
+.upload-button {
+  position: relative;
+  z-index: 1;
+
+  margin-top: 25px;
+
+  height: 42px;
+
+  padding: 0 19px;
+
+  border: 0;
+  border-radius: 10px;
+
+  background: #f2f4f7;
+
+  color: #090b0f;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.upload-button:hover {
+  transform: translateY(-2px);
+
+  background: #ffffff;
+
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.upload-button:active {
+  transform: translateY(0);
+}
+
+.upload-hint {
+  position: relative;
+  z-index: 1;
+
+  margin-top: 14px;
+
+  color: #505b6b;
+
+  font-size: 10px;
+}
+
+/* ========================================
+   HOW IT WORKS
+======================================== */
+
+.upload-process {
+  width: min(1120px, 100%);
+
+  margin: 110px auto 0;
+
+  padding-top: 78px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ========================================
+   PROCESS GRID
+======================================== */
+
+.process-grid {
+  margin-top: 38px;
+
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 10px;
+}
+
+.process-card {
+  position: relative;
+
+  min-height: 245px;
+
+  padding: 24px;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.034),
+      rgba(255, 255, 255, 0.01)
+    );
+
+  transition:
+    transform 0.28s ease,
+    border-color 0.28s ease,
+    background 0.28s ease,
+    box-shadow 0.28s ease;
+}
+
+.process-card:hover {
+  transform: translateY(-5px);
+
+  border-color: rgba(91, 140, 255, 0.22);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(91, 140, 255, 0.045),
+      rgba(255, 255, 255, 0.012)
+    );
+
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.2);
+}
+
+.process-card > span {
+  color: #465162;
+
+  font-family: "Space Grotesk", sans-serif;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 0.08em;
+}
+
+/* ========================================
+   PROCESS ICON
+======================================== */
+
+.process-icon {
+  width: 42px;
+  height: 42px;
+
+  margin-top: 30px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 11px;
+
+  background: rgba(255, 255, 255, 0.03);
+
+  color: #dce3ed;
+
+  font-size: 16px;
+}
+
+/* ========================================
+   PROCESS CONTENT
+======================================== */
+
+.process-card h3 {
+  margin-top: 23px;
+
+  font-family: "Space Grotesk", sans-serif;
+
+  font-size: 17px;
+  font-weight: 600;
+
+  letter-spacing: -0.025em;
+
+  color: #e8edf3;
+}
+
+.process-card p {
+  margin-top: 8px;
+
+  color: #707b8c;
+
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+/* ========================================
+   DATA SOURCES
+======================================== */
+
+.data-sources {
+  width: min(1120px, 100%);
+
+  margin: 0 auto;
+
+  padding: 78px 0;
+
+  display: grid;
+
+  grid-template-columns: 190px 1fr;
+
+  gap: 70px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.source-content {
+  display: grid;
+
+  grid-template-columns: 0.85fr 1.15fr;
+
+  gap: 55px;
+}
+
+.source-content h2 {
+  font-family: "Space Grotesk", sans-serif;
+
+  font-size: clamp(34px, 4vw, 48px);
+  line-height: 1.04;
+
+  font-weight: 600;
+
+  letter-spacing: -0.05em;
+
+  color: #edf1f7;
+}
+
+.source-content > div:first-child p {
+  max-width: 350px;
+
+  margin-top: 20px;
+
+  color: #747f90;
+
+  font-size: 12px;
+  line-height: 1.75;
+}
+
+/* ========================================
+   SOURCE LIST
+======================================== */
+
+.source-list {
+  display: flex;
+  flex-direction: column;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.source-item {
+  min-height: 82px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 20px;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+
+  transition:
+    padding-left 0.25s ease,
+    background 0.25s ease;
+}
+
+.source-item:hover {
+  padding-left: 8px;
+}
+
+.source-item > span {
+  flex-shrink: 0;
+
+  width: 24px;
+
+  color: #485363;
+
+  font-family: "Space Grotesk", sans-serif;
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.source-item h3 {
+  font-family: "Space Grotesk", sans-serif;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  color: #e1e6ed;
+}
+
+.source-item p {
+  margin-top: 4px;
+
+  color: #687384;
+
+  font-size: 10px;
+}
+
+/* ========================================
+   CLOSING
+======================================== */
+
+.upload-closing {
+  width: min(1120px, 100%);
+
+  margin: 0 auto;
+
+  padding: 115px 0 20px;
+
+  text-align: center;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.upload-closing h2 {
+  margin-top: 20px;
+
+  font-family: "Space Grotesk", sans-serif;
+
+  font-size: clamp(44px, 6vw, 68px);
+  line-height: 1;
+
+  font-weight: 600;
+
+  letter-spacing: -0.06em;
+
+  color: #f1f4f8;
+}
+
+.upload-closing h2 span {
+  color: #737e8e;
+}
+
+/* ========================================
+   TABLET
+======================================== */
+
+@media (max-width: 900px) {
+  .process-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .data-sources {
+    grid-template-columns: 1fr;
+
+    gap: 35px;
+  }
+
+  .source-content {
+    grid-template-columns: 1fr;
+
+    gap: 45px;
+  }
+}
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 600px) {
+  .upload-data-page {
+    padding: 75px 16px 100px;
+  }
+
+  .upload-hero h1 {
+    font-size: 44px;
+  }
+
+  .upload-hero p {
+    font-size: 13px;
+  }
+
+  .upload-section {
+    margin-top: 55px;
+  }
+
+  .upload-card {
+    min-height: 340px;
+
+    padding: 35px 20px;
+
+    border-radius: 16px;
+  }
+
+  .upload-process {
+    margin-top: 80px;
+
+    padding-top: 60px;
+  }
+
+  .process-grid {
+    grid-template-columns: 1fr;
+
+    margin-top: 30px;
+  }
+
+  .process-card {
+    min-height: 220px;
+  }
+
+  .data-sources {
+    margin-top: 0;
+
+    padding: 60px 0;
+  }
+
+  .source-content h2 {
+    font-size: 36px;
+  }
+
+  .upload-closing {
+    padding-top: 85px;
+  }
+
+  .upload-closing h2 {
+    font-size: 42px;
+  }
+}
+
+/* ========================================
+   SMALL MOBILE
+======================================== */
+
+@media (max-width: 400px) {
+  .upload-hero h1 {
+    font-size: 40px;
+  }
+
+  .source-content h2 {
+    font-size: 33px;
+  }
+
+  .upload-closing h2 {
+    font-size: 37px;
+  }
+}
+
+/* ========================================
+   REDUCED MOTION
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .upload-card,
+  .upload-button,
+  .process-card,
+  .source-item {
+    transition: none;
+  }
+
+  .process-card:hover,
+  .upload-button:hover {
+    transform: none;
+  }
+
+  .source-item:hover {
+    padding-left: 0;
+  }
+}

@@ -1,0 +1,45 @@
+/* ========================================
+   GLOBAL
+======================================== */
+
+@import "./Components/Pages/About/About.css";
+@import "./Components/Pages/ExploreAgents/Agents.css";
+@import "./Components/Pages/MCP/Mcp.css";
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  background: #07090d;
+}
+
+body {
+  min-width: 100%;
+  overflow-x: hidden;
+  color: #f5f7fb;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+img,
+svg {
+  max-width: 100%;
+  display: block;
+}
