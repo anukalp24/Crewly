@@ -14,7 +14,7 @@ structuredllm = llm.with_structured_output(RoutingDecision)
 # it declares the structure of the llm output
 
 # Routing decision
-def orchestrator(state : CrewAi):
+def orchestrator(state):
     response = structuredllm.invoke([SystemMessage(content="""   You are the CrewAi orchestrator.
 
                 Analyze the user's latest request.
@@ -30,3 +30,6 @@ def orchestrator(state : CrewAi):
                 properly handle the request.""") , *state["messages"]])
 
     return  {"route" : response.route}     
+
+
+    # here why not direclty send thr ques 

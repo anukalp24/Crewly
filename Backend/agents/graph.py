@@ -2,7 +2,8 @@ from langgraph.prebuilt import ToolNode , tools_condition
 from langchain_groq import ChatGroq
 from langgraph.graph import START , END , StateGraph
 
-
+from dotenv import load_dotenv
+load_dotenv()
 from agents.state import CrewAi
 from agents.orchestrator import orchestrator  # orchestrator is a function
 
@@ -10,21 +11,28 @@ from langchain_core.messages import AIMessage
 
 llm = ChatGroq(model="openai/gpt-oss-120b")
 
-
+from agents.deep_agent import supervisor
 
 builder = StateGraph(CrewAi)
 
 # langraph automatic sends the current state in these function
 
 def direct_ans(state):
-    return
+   result = llm.invoke(state["messages"])
+   return {"messages" : [result]}
+   
 
 def deep_agent(state):
-    return
+
+
+ result = supervisor(state)
+ return result
+
 
 
 def route_request(state):
     return state["route"]
+
 
 
 builder.add_node("orchestrator" , orchestrator)
@@ -38,3 +46,6 @@ builder.add_edge("deep_agent" , END)
 
 
 graph = builder.compile()
+
+question = graph.invoke({"messages" : [{"role" : "user" , "content" : "Research how JWT refresh tokens work and write a simple FastAPI implementation"}]})
+print(question["messages"][-1].content)
