@@ -1,5 +1,5 @@
 from langchain_tavily import TavilySearch
-search = TavilySearch(max_results=3)
+search = TavilySearch(max_results=3 , include_images=True , include_image_description=True)
 
 def web_search(question : str):
  """Search the web for information relevant to the given query."""
@@ -7,8 +7,8 @@ def web_search(question : str):
 
 research_agent = {
     "name" : "research_agent",
-    "description" : ("Researches topics using web search, "
-        "compares sources, and summarizes findings.") ,
+    "description" : ("Researches topics using web search, compares sources, "
+        "and retrieves relevant images when needed.") ,
 
         "tools" : [web_search] ,
         "system_prompt" : (
