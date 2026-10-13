@@ -1,7 +1,16 @@
+# this whole thing is an outer agent system combine with inner deep agent got it
+
+# this itself an agent
+
+# what is an ai agent??
+# ans : an ai agent is a ai system that uses an llm to understand a task , make decision , chooses tools and take actions to acheive a goal , it can analyze tool result , and can decide what to do next , it can repeat the same tool mamany times until the taks is done
+ 
+
+# what is an agentic ai??
+
 from langgraph.prebuilt import ToolNode , tools_condition
 from langchain_groq import ChatGroq
 from langgraph.graph import START , END , StateGraph
-
 from dotenv import load_dotenv
 load_dotenv()
 from agents.state import CrewAi
@@ -16,7 +25,7 @@ from agents.deep_agent import supervisor
 builder = StateGraph(CrewAi)
 
 # langraph automatic sends the current state in these function
-
+this full is an agent system ok and ai agent part is onlt this
 def direct_ans(state):
    result = llm.invoke(state["messages"])
    return {"messages" : [result]}
@@ -25,7 +34,7 @@ def direct_ans(state):
 def deep_agent(state):
  result = supervisor(state)
  return result
-# return the result to langgrpah so it couls update the state
+# return the result to langgrpah so it couls update the state 
 
 
 

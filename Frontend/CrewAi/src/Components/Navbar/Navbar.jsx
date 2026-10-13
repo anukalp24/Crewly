@@ -17,6 +17,7 @@ const Navbar = () => {
         <Link to="/agents">Agents</Link>
         <Link to="/mcp">MCP</Link>
         <Link to="/upload-data">Upload Data</Link>
+        <Link to="/Chat">Chat</Link>
       </div>
 
    <div className="nav-actions">
