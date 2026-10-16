@@ -1,13 +1,11 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState , useEffect } from 'react'
 import "./Chat.css"
 const Chat = () => {
-
-
-
-
 const [Chat, setChat] = useState("")
 const [error, seterror] = useState(null)
+const [loader, setloader] = useState(false)
+const [data, setdata] = useState([])
 
 const handlechange = (e)=>{
 setChat(e.target.value)
@@ -17,23 +15,44 @@ setChat(e.target.value)
 
 const handleadd = async()=>{
 
+  try {
+    setChat("")
+    setloader(true)
   if(!Chat){
-    seterror("Message is required")
+   return seterror("Message is required")
     
   }
-const req = await fetch(`http://127.0.0.1:8000/signin` , {
+const req = await fetch(`http://127.0.0.1:8000/chat` , {
   method: "POST",
   headers: {"Content-Type": "application/json" } ,
-  body: JSON.stringify(Chat)
+  body: JSON.stringify({
+    question : Chat
+  })
 }
 )
+
+const result = await req.json()
+setdata(result.data)
+
+
+  } catch (error) {
+    seterror(error)
+  }
+
+
+  finally{
+    setloader(false)
+  }
 
 }
 
 
 
   return (
-     <div className="chat-app">
+
+    
+    
+    <div className="chat-app">
       <aside className="chat-sidebar">
         <div className="sidebar-header">
           <a className="chat-brand" href="/">
@@ -49,6 +68,7 @@ const req = await fetch(`http://127.0.0.1:8000/signin` , {
           </button>
         </div>
 
+      
         <div className="sidebar-actions">
           <button className="new-chat-button">
             <svg viewBox="0 0 24 24" fill="none">
@@ -134,10 +154,36 @@ const req = await fetch(`http://127.0.0.1:8000/signin` , {
           </div>
 
           {/* Conversation messages will appear here later. */}
+
+   <div className="messages">
+  {data?.map((msg, index) =>
+    msg.type === "human" ? (
+      <div className="message-row human" key={index}>
+        <div className="human-message">{msg.content}</div>
+      </div>
+    ) : (
+      <div className="message-row ai" key={index}>
+        <div className="ai-avatar">C</div>
+        <p className="ai-message">{msg.content}</p>
+      </div>
+    )
+  )}
+  {loader && (
+    <div className="message-row ai">
+      <div className="ai-avatar">C</div>
+      <div className="typing">
+        <span />
+        <span />
+        <span />
+      </div>
+    </div>
+  )}
+</div>
+
         </section>
         <footer className="chat-composer-area">
           <div className="chat-composer">
-            <textarea onChange={handlechange}
+            <textarea value={Chat} onChange={handlechange}
               placeholder="Message CrewAi..."
               rows="1"
               aria-label="Message CrewAi"
@@ -151,22 +197,20 @@ const req = await fetch(`http://127.0.0.1:8000/signin` , {
                   </svg>
                 </button>
 
-                <button className="agent-mode-button">
-                  <span className="mode-indicator" />
-                  Agent mode
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path d="m7 10 5 5 5-5" />
-                  </svg>
-                </button>
+                
               </div>
 
               <div className="composer-right">
                 <span className="composer-hint">Enter to send</span>
                 <button onClick={handleadd} className="send-button" aria-label="Send message">
+
+                 
+                    
                   <svg viewBox="0 0 24 24" fill="none">
                     <path d="M12 19V5m-6 6 6-6 6 6" />
                   </svg>
-                </button>
+                   
+                                   </button>
               </div>
             </div>
           </div>

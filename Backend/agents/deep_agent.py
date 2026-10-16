@@ -7,10 +7,6 @@ from agents.subagents.coding_agent import coding_agent
 
 # When you pass the full message history, the Deep Agent receives all three messages. Its current task is to answer "How do refresh tokens work?", using the earlier conversation for context.
 # my crewai schema and deep agent schme is diff
-
-
-
-
 # this is our agent 
 
 

@@ -8,7 +8,7 @@ def web_search(question : str):
 research_agent = {
     "name" : "research_agent",
     "description" : ("Researches topics using web search, compares sources, "
-        "and retrieves relevant images when needed.") ,
+        ) ,
 
         "tools" : [web_search] ,
         "system_prompt" : (
