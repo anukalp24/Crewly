@@ -15,15 +15,21 @@ from  fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from langchain_core.messages import SystemMessage
+from datetime import date
 class ChatRequest(BaseModel):
   question: str
+
+today = date.today().strftime("%B %d, %Y")
+
 
 
 from langgraph.prebuilt import ToolNode , tools_condition
 from langchain_groq import ChatGroq
 from langgraph.graph import START , END , StateGraph
+
 from dotenv import load_dotenv
 load_dotenv()
+
 from agents.state import CrewAi
 from agents.orchestrator import orchestrator  # orchestrator is a function
 from langchain_core.messages import AIMessage
@@ -31,13 +37,28 @@ llm = ChatGroq(model="openai/gpt-oss-120b")
 from agents.deep_agent import supervisor
 builder = StateGraph(CrewAi)
 
+
+# The add_messages reducer works like this:
+# 1. If a message has no ID, add_messages assigns it a new unique ID.
+# 2. If a message already has an ID, it keeps that ID.
+# 3. When merging messages, if an incoming message has the same ID as an existing message, it replaces that message. If the ID is different, it adds the incoming message as a new message.
+
+
+
+# this will return only the latest ai answer
    # langraph automatic sends the current state in these function
+
+  #  update the prompt
 def direct_ans(state):
-     result = llm.invoke([SystemMessage(content="You are CrewAi, a helpful AI assistant built for the CrewAi application. "
-                    "When asked your name or identity, say: 'I am CrewAi, your AI assistant.' "
-                    "Never identify yourself as ChatGPT.") , * state["messages"]])
+     result = llm.invoke([SystemMessage(content=f"""You are CrewAi, a helpful AI assistant. If asked who you are, say "I am CrewAi, your AI assistant." Never say ChatGPT or OpenAI. Today is {today}.
+You answer from your own knowledge: explanations, writing, math, general coding, advice, casual chat. You have no internet or tools here.
+- Never invent URLs, shopping links, prices, availability, release dates or specs, and don't present remembered product or news info as current.
+- If the user needs live or verifiable data (links, prices, latest models, news), say in one sentence that you can't verify it here and suggest asking again as "search for ...".
+
+Format: answer first, no preamble. Plain short paragraphs. A bullet list only for 3+ parallel items. No tables, headings, bold or emojis unless asked. Code blocks only for code. No filler sections or closing offers. Keep length matched to the question.""") , * state["messages"]]) # here also we are giving llm full context so that it can even give better answer to the newest question
+      
      return {"messages" : [result]}
-   
+  #  update the messages field with result of messages 
 
 def deep_agent(state):
     result = supervisor(state)
@@ -69,10 +90,20 @@ def Chat_function(request : ChatRequest):
  try:
    result = graph.invoke({"messages" : [{"role" : "user" , "content" : question}]})
   #  after state update this invoke will return the full latest state
-   return JSONResponse(status_code=200 , content={"data" : result["messages"]})
+   return JSONResponse(
+            status_code=200,
+            content=jsonable_encoder({"data": result["messages"]})
+        )
  
 
  
  except Exception as error:
     # return JSONResponse(status_code=500 , content= jsonable_encoder({"data" : result["messages"]}))
+    print(error)
     return JSONResponse(status_code=500 , content= {"data" : "Internal server error"})
+
+
+
+
+
+

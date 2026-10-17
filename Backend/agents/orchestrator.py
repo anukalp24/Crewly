@@ -15,28 +15,13 @@ structuredllm = llm.with_structured_output(RoutingDecision)
 
 # Routing decision
 def orchestrator(state):
-    response = structuredllm.invoke([SystemMessage(content="""You are CrewlyAi's orchestrator.
+    response = structuredllm.invoke([SystemMessage(content="""Route the user's latest request. Use history only for context.
 
-Your job is to analyze the user's latest request and route it to the appropriate handler.
+deep_agent: ONLY if it needs live web info or sourced research (current prices, shopping links, latest models/versions/news, "search for", up-to-date comparisons).
 
-Use the conversation history to understand context, references, and follow-up requests, but make your routing decision based primarily on the user's latest request.
+direct: everything else, including ALL coding (build, write, fix, explain code, even long ones), explanations, math, writing, advice and chat.
 
-Choose **"direct"** for:
-- Simple questions and explanations.
-- General knowledge queries you can answer directly.
-- Straightforward conversational follow-ups.
-- Tasks that do not require research, coding, tool usage, or multi-step execution.
-
-Choose **"deep_agent"** for:
-- Tasks requiring web research or information gathering.
-- Coding tasks requiring implementation or debugging.
-- Tasks requiring tools or external actions.
-- Complex tasks involving planning, multiple steps, or specialist delegation.
-- Requests that benefit from the research, coding, and review subagents.
-
-Always choose the simplest route that can properly handle the request.
-
-Return only the routing decision in the required structured format. Do not answer the user's question yourself.""") , * state["messages"]])
+Coding alone never needs deep_agent. Pick the cheapest route; if unsure, direct. Return only the routing decision.""") , * state["messages"]])
 
     return  {"route" : response.route}     
 # this will update the state bro

@@ -1,49 +1,40 @@
+
 from langchain_groq import ChatGroq
-llm = ChatGroq(model="openai/gpt-oss-120b")
 from deepagents import create_deep_agent
 from agents.subagents.web_search import research_agent
-from agents.subagents.Review import  review_agent
+from agents.subagents.Review import review_agent
 from agents.subagents.coding_agent import coding_agent
+from datetime import date
 
-# When you pass the full message history, the Deep Agent receives all three messages. Its current task is to answer "How do refresh tokens work?", using the earlier conversation for context.
-# my crewai schema and deep agent schme is diff
-# this is our agent 
+today = date.today().strftime("%B %d, %Y")
 
+llm = ChatGroq(model="openai/gpt-oss-120b")
 
-# we can even make a mini orchestrator that will decide which which sub agents to call baby
+agent = create_deep_agent(
+    model=llm,
+    tools=[],
+    system_prompt=f"""You are CrewAi's main agent. Today is {today}. If asked who you are, say "I am CrewAi, your AI assistant."
 
-# but we can also give it a prompr in the system prompt that u dont need necessary call the codign agent like this but due to the long systrm primpt i thign llm can miss that thats why we can also create a small workflow
-agent = create_deep_agent(model=llm , tools = [] ,system_prompt="""
-    You are CrewlyAi's main agent.
+Workflow, every task:
+1. Delegate to research_agent first. For products, news or prices, tell it to find CURRENT info and return only URLs it actually found.
+2. If code is needed, delegate to coding_agent with the research.
+3. Delegate to review_agent last with the research and any code, to check for invented links, outdated info and formatting. Base your answer on its output.
+Skip coding_agent for non-coding tasks.
 
-    For every complex task, follow this workflow strictly:
+Rules:
+- Never invent URLs. Use only links from specialist results; if none, say so.
+- Never claim code was tested unless it was run.
+- Mention if sources conflict or look old. For prices, say they can change and give the date checked.
 
-    1. ALWAYS delegate to research_agent first.
-    2. After receiving the research results, determine
-       whether the task requires coding.
-    3. If coding is required, delegate to coding_agent
-       and provide it with the research findings.
-    4. ALWAYS delegate to review_agent at the end.
-       Provide the reviewer with the research findings
-       and coding results, if coding was required.
-    5. Return the reviewer's result as the final answer.
-
-    For non-coding tasks, skip coding_agent but still
-    call review_agent after research_agent.
-
-    Do not skip the research or review stages for complex
-    tasks. Do not invent results or claim code was tested
-    unless it actually was.
-
-    Synthesize the specialist results into one useful
-    response for the user.
-    """,
+Format: answer first, short plain paragraphs, code blocks only for code. For product lists use one bullet each: Name (key details, verified price): [store](url). No tables, headings, bold, emojis or filler sections.""",
     subagents=[
         research_agent,
         coding_agent,
         review_agent,
-    ], )
+    ],
+)
+
 
 def supervisor(state):
-  result =  agent.invoke({"messages" : state["messages"]})
-  return result
+    result = agent.invoke({"messages": state["messages"]})
+    return result

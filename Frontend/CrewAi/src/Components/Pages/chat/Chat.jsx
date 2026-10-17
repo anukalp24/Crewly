@@ -32,10 +32,19 @@ const req = await fetch(`http://127.0.0.1:8000/chat` , {
 )
 
 const result = await req.json()
-setdata(result.data)
+
+if(req.ok){
+  setdata(result.data)
+
+}
+
+else{
+  seterror(result.data)
+}
 
 
   } catch (error) {
+    alert("error")
     seterror(error)
   }
 
