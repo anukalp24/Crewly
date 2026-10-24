@@ -1,11 +1,7 @@
 # this whole thing is an outer agent system combine with inner deep agent got it
-
 # this itself an agent
-
 # what is an ai agent??
 # ans : an ai agent is a ai system that uses an llm to understand a task , make decision , chooses tools and take actions to acheive a goal , it can analyze tool result , and can decide what to do next , it can repeat the same tool mamany times until the taks is done
- 
-
 # what is an agentic ai??
 # http parser parses everyything except body
 
@@ -13,11 +9,15 @@
 
 from  fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel
+from pydantic import BaseModel , Field , field_validator
+from langgraph.checkpoint.memory import MemorySaver
+from langgraph.store.memory import InMemoryStore
 from langchain_core.messages import SystemMessage
 from datetime import date
+
+# basemodel is a base class and pydantic is a validation model
 class ChatRequest(BaseModel):
-  question: str
+  question: str = Field(min_length=1 , max_length=10_000 , strict=True)
 
 today = date.today().strftime("%B %d, %Y")
 
@@ -42,20 +42,18 @@ builder = StateGraph(CrewAi)
 # 1. If a message has no ID, add_messages assigns it a new unique ID.
 # 2. If a message already has an ID, it keeps that ID.
 # 3. When merging messages, if an incoming message has the same ID as an existing message, it replaces that message. If the ID is different, it adds the incoming message as a new message.
-
-
-
 # this will return only the latest ai answer
    # langraph automatic sends the current state in these function
 
   #  update the prompt
 def direct_ans(state):
-     result = llm.invoke([SystemMessage(content=f"""You are CrewAi, a helpful AI assistant. If asked who you are, say "I am CrewAi, your AI assistant." Never say ChatGPT or OpenAI. Today is {today}.
-You answer from your own knowledge: explanations, writing, math, general coding, advice, casual chat. You have no internet or tools here.
-- Never invent URLs, shopping links, prices, availability, release dates or specs, and don't present remembered product or news info as current.
-- If the user needs live or verifiable data (links, prices, latest models, news), say in one sentence that you can't verify it here and suggest asking again as "search for ...".
+     result = llm.invoke([SystemMessage(content=f"""ou are CrewAI, a helpful AI assistant. If asked who you are, say "I am CrewAI, your AI assistant." Never say you are ChatGPT or made by OpenAI. Today is {today}.
 
-Format: answer first, no preamble. Plain short paragraphs. A bullet list only for 3+ parallel items. No tables, headings, bold or emojis unless asked. Code blocks only for code. No filler sections or closing offers. Keep length matched to the question.""") , * state["messages"]]) # here also we are giving llm full context so that it can even give better answer to the newest question
+You answer from your own knowledge and have no internet or tools. Never invent URLs, prices, availability, release dates or specs, and don't present remembered product or news info as current. If the user needs live or verifiable data, say in one sentence you can't verify it here and suggest asking again as "search for ...". If unsure, say so.
+
+Write the way a thoughtful person writes: natural, flowing paragraphs, with a blank line between paragraphs. Start with the answer, no greeting, preamble or closing offers. Explanations, advice, comparisons, opinions and casual chat are always prose, never bullets.
+
+Use a list only when the content is truly list-shaped, such as sequential steps someone will follow or several parallel items to scan. Even then, keep it to a plain numbered or "-" list with no bold, and write a sentence or two of prose around it. Never use ** or # characters, tables or emojis unless asked. Code goes only in code blocks.""") , * state["messages"]]) # here also we are giving llm full context so that it can even give better answer to the newest question
       
      return {"messages" : [result]}
   #  update the messages field with result of messages 
@@ -64,11 +62,8 @@ def deep_agent(state):
     result = supervisor(state)
     return result
 # return the result to langgrpah so it could update the state
-
-
 def route_request(state):
-    return state["route"]
-
+    return state["route"] 
  # state update tab hi hota hain jab tum apne node se result ko return karte ho
 builder.add_node("orchestrator" , orchestrator)
 builder.add_node("direct_answer" , direct_ans )
@@ -79,10 +74,8 @@ builder.add_conditional_edges("orchestrator" , route_request , {"direct" : "dire
 builder.add_edge("direct_answer" , END)
 builder.add_edge("deep_agent" , END)
 
+checkPointer = MemorySaver()
 graph = builder.compile()
-
-
-
 
 def Chat_function(request : ChatRequest):
  question = request.question
@@ -102,8 +95,4 @@ def Chat_function(request : ChatRequest):
     print(error)
     return JSONResponse(status_code=500 , content= {"data" : "Internal server error"})
 
-
-
-
-
-
+ 

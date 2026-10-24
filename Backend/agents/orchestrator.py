@@ -28,5 +28,5 @@ Coding alone never needs deep_agent. Pick the cheapest route; if unsure, direct.
 
 
 # LLM will look at the newest message because of the prompt but i changed it now we are givign full context so the llm will make the accurate decision while routing
-    # here why not direclty send thr ques
-    
+
+
